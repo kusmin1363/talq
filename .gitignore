@@ -1,0 +1,57 @@
+# ---- large artifacts: regenerate, never commit ----------------------------
+# Precomputed quantized weights (~790 GB in the source tree).
+quants/
+quants_*/
+# Datasets. See docs/DATA.md for how to obtain them.
+data/
+corpora/
+# Calibration tensors. Rebuilt by data_prep/make_task_calib.py.
+calib/
+# Trained task heads. Distributed separately; see docs/CHECKPOINTS.md.
+checkpoints/*
+!checkpoints/README.md
+# Pretrained SSL backbones (pulled from the HF hub at run time).
+wav2vec2-*/
+hubert-*/
+wavlm-*/
+
+# ---- run-time output ------------------------------------------------------
+logs/
+tbruns/
+runs/
+runner_state/
+*.log
+
+# ---- weights / tensors anywhere -------------------------------------------
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+*.tar
+*.tgz
+*.tar.gz
+
+# ---- python ---------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# ---- editor / os / agent state --------------------------------------------
+*.bak
+*.orig
+*.swp
+.DS_Store
+.idea/
+.vscode/
+.omc/
+.claude/
+
+# ---- not for publication (see docs/RELEASE_CHECKLIST.md) ------------------
+# Internal notes, advisor feedback, third-party paper PDFs.
+private/
+figs/

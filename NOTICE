@@ -1,0 +1,19 @@
+TALQ — Task-Adaptive Layer-wise Quantization for Speech Foundation Models
+
+This project is released under the MIT License (see LICENSE), with one exception.
+
+  talq/eval/superb_heads.py
+      Derived from s3prl (https://github.com/s3prl/s3prl), Copyright (c) Speech
+      Lab, NTU, Taiwan, licensed under the Apache License, Version 2.0. That file
+      remains under Apache-2.0; its full text is in LICENSES/Apache-2.0.txt. The
+      file carries a header recording the modifications made, as Apache-2.0
+      section 4 requires.
+
+  talq/quant/awq.py
+      The function pseudo_quantize_tensor is reproduced verbatim from llm-awq
+      (https://github.com/mit-han-lab/llm-awq), Copyright (c) 2023 MIT HAN Lab,
+      MIT License. MIT terms are satisfied by this notice and the attribution in
+      the source.
+
+Redistributing this project means honouring both sets of terms. See THIRD_PARTY.md
+for what was taken from where and what was changed.

@@ -1,0 +1,19 @@
+# Full environment for quantization, task-head training and the sweep.
+# For Tier-1 reproduction (figures and tables from the shipped results) a plain
+# `pip install -e .` plus numpy/pandas/matplotlib is enough -- no CUDA needed.
+name: talq
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - numpy>=1.24
+  - pandas>=2.0
+  - matplotlib>=3.7
+  - libsndfile
+  - pip:
+      - torch>=2.1
+      - transformers>=4.35
+      - soundfile>=0.12

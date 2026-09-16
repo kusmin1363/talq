@@ -1,0 +1,15 @@
+# Verified against the environment that produced the paper's results:
+# Python 3.11.15, CUDA 12.6.
+#
+# Tier-1 reproduction (regenerating the paper's figures and tables from results/)
+# needs only numpy, pandas and matplotlib -- no torch, no soundfile.
+
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.7
+
+# Everything below is needed only to quantize, train task heads, or re-run the
+# sweep. Install torch yourself for your CUDA version; see pytorch.org.
+torch>=2.1
+transformers>=4.35
+soundfile>=0.12

@@ -1,0 +1,6 @@
+backbone,task,kind,budget,avg_bit,seq,metric,value,quant_dir,eval,sec
+w2v2,er,taq-kl-p34,3.6667,3.6667,444444344333,ER_ERR,0.390883,quants_1024/GPTQ/quants_tc1024_er_fold4,full,20
+wavlm,er,taq-kl-p34,3.6667,3.6667,444443444333,ER_ERR,0.387003,quants_1024/GPTQ/quants_tc1024_er_fold4,full,88
+hubert,er,taq-kl-p34,3.6667,3.6667,444444443333,ER_ERR,0.375364,quants_1024/GPTQ/quants_tc1024_er_fold4,full,14
+wavlmL,er,taq-kl-p34,3.6667,3.6667,444333334444444444444333,ER_ERR,0.313288,quants_1024/GPTQ/quants_tc1024_er_fold4,full,94
+hubertL,er,taq-kl-p34,3.6667,3.6667,444333333444444444444433,ER_ERR,0.366634,quants_1024/GPTQ/quants_tc1024_er_fold4,full,20

@@ -1,0 +1,2 @@
+backbone,task,kind,budget,avg_bit,seq,metric,value,quant_dir,eval,sec
+hubertL,ks,taq-kl-p34,3.3333,3.3333,333333333333444444443333,KS_ERR,0.053879,quants_1024/GPTQ/quants_tc1024_ks,full,41
