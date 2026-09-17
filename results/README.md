@@ -28,6 +28,7 @@ against an earlier or shorter calibration set.
 | `ks_head_hubertL.json` | The HuBERT Large KS head's own reference rows. |
 | `seed_stability.csv` | Allocation stability across random seeds. |
 | `uniform_bank/` | The uniform 2/3/4-bit reference measured once per backbone and reused across λ cells. |
+| `pool3600/` | The 3,600-second audio pool that allocation is decided on, as ordered file lists — one per task, one per ER fold. Not stored anywhere else: the pool is re-derived from the corpora each run, so these lists are the only way to read it without running the code. See `pool3600/README.md`. |
 | `extra/` | Measurements on the same axis that are **not** in the paper — a third allocation method, seed and initialisation sensitivity, the `{3,4}` bit set. See `extra/README.md`. |
 
 ## Regenerating these
