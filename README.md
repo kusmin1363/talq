@@ -76,7 +76,11 @@ Paths are configured entirely through environment variables (`TALQ_DATA_ROOT`,
 ## Citation
 
 ```bibtex
-TODO
+@misc{talq2026,
+  title = {Task-Adaptive Layer-wise Quantization for Speech Foundation Models},
+  year  = {2026},
+  note  = {Under review}
+}
 ```
 
 ## License
