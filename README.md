@@ -39,7 +39,21 @@ pip install -e .
 ./scripts/make_figures.sh
 ```
 
-Both figures come out byte-identical to the published versions in `assets/`.
+Both figures come out identical to the published versions in `assets/` apart from
+the creation timestamp that PDF embeds, so `md5sum` will differ while the drawing
+does not. To check:
+
+```bash
+python - <<'EOF'
+import re
+pat = re.compile(rb"/CreationDate \(D:\d{14}Z\)")
+for a, b in [("figs/fig_sens_multi_2bit.pdf", "assets/fig1_sensitivity.pdf"),
+             ("figs/fig_alloc_multi_gptq_b3.33.pdf", "assets/fig2_allocation.pdf")]:
+    x, y = (pat.sub(b"", open(f, "rb").read()) for f in (a, b))
+    print(f"{b}: {'identical' if x == y else 'DIFFERS'}")
+EOF
+```
+
 Full procedure, including re-running the sweep from scratch: [`docs/REPRODUCE.md`](docs/REPRODUCE.md).
 
 ## Layout

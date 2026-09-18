@@ -23,7 +23,8 @@ python figures/fig2_allocation.py --out-dir sw_gptq --quantizer GPTQ \
 ```
 
 Expected Rel. GMean in Table 1: GPTQ 1.049 (≤3.67) and 1.077 (≤3.33); AWQ 1.141
-and 1.252. Both figures come out byte-identical to `assets/`.
+and 1.252. Both figures come out identical to `assets/` apart from the creation timestamp
+PDF embeds; the README shows how to check that.
 
 Note `figures/fig2_allocation.py` defaults to a different sweep directory; pass
 `--out-dir sw_gptq` to get the panel that is in the paper.
