@@ -29,19 +29,26 @@ comparisons, with the larger margins at the tighter cap. Within 5% relative erro
 of uniform 4-bit it needs only 3.21 and 3.38 bits on average — 1.25× and 1.18×
 additional linear-weight compression.
 
-## Reproduce the paper in one command
+## Checking the paper's numbers
 
-Everything the figures and tables need is in `results/` (9.5 MB). No GPU, no
-datasets, no checkpoints.
+This repository is a reproduction aid, not a guarantee of exact reproduction. It
+is here so the paper's numbers can be traced back to the code and measurements
+that produced them, and so the parts that are checkable can be checked cheaply.
+Where a result depends on a stochastic search, a random crop or a separately
+trained head, re-running it will land near the published value rather than on it;
+those places are named as they come up.
+
+The figures and tables are the cheap end: the measurements they read are in
+`results/` (9.5 MB), so they need no GPU, no datasets and no checkpoints.
 
 ```bash
 pip install -e .
 ./scripts/make_figures.sh
 ```
 
-Both figures come out identical to the published versions in `assets/` apart from
-the creation timestamp that PDF embeds, so `md5sum` will differ while the drawing
-does not. To check:
+On our machine both figures came out identical to the published versions in
+`assets/` apart from the creation timestamp PDF embeds — so `md5sum` differs while
+the drawing does not. To check that on yours:
 
 ```bash
 python - <<'EOF'
@@ -67,7 +74,7 @@ Full procedure, including re-running the sweep from scratch: [`docs/REPRODUCE.md
 | `talq/eval/` | SUPERB task heads, official full-split evaluation, per-layer sensitivity |
 | `talq/baselines/` | TAQ-KL / TAQ-IS re-implementation, scored on TALQ's own axis |
 | `talq/data_prep/` | Task-conditioned calibration set construction |
-| `figures/` | Regenerates every figure and table in the paper |
+| `figures/` | Regenerates the figures and tables in the paper |
 | `results/` | The measurements themselves |
 | `docs/` | Data, checkpoints, reproduction |
 

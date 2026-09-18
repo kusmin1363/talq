@@ -48,14 +48,14 @@ read with `load_wav(max_s=MAX_S)`.
 Paths are relative to the directory each corpus unpacks into — LibriSpeech and the
 SUPERB corpora from `TALQ_DATA_ROOT`, IEMOCAP from `IEMOCAP_full_release/`.
 
-## Two properties worth checking
+## Two properties you can check directly
 
 - **`pr.txt` and `asr.txt` are identical.** Both index `train-clean-100` under the
   same seed, and the PR lexicon filter drops nothing at this scale (28,539
-  utterances either way). PR and ASR therefore allocate against the same audio,
-  and any difference between them comes from the task head, not the data.
+  utterances either way). PR and ASR therefore allocate against the same audio, so
+  a difference between them is not a difference in data.
 - **`er_fold{n}.txt` contains no `Session{n}`.** ER is five-fold in SUPERB, so the
-  session being scored must be absent from every training resource — the
+  session being scored should be absent from every training resource — the
   calibration, the task head and this pool. `grep -c Session1 er_fold1.txt`
   returns 0, and so on for all five.
 

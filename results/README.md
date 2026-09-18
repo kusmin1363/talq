@@ -1,7 +1,7 @@
 # Shipped results
 
-Raw measurements, small enough to version (9.5 MB). Every figure and table in the
-paper rebuilds from these alone — no GPU, no dataset, no checkpoints:
+Raw measurements, small enough to version (9.5 MB). The figures and tables in the
+paper are rebuilt from these, with no GPU, dataset or checkpoint needed:
 
 ```bash
 python figures/table1.py          # Table 1 and Table 2
@@ -13,8 +13,8 @@ python figures/fig2_allocation.py
 
 Every allocation cell records the candidate directory it was measured against in
 its own `quant_dir` field. All of them read `quants_tc1024_{task}` — the 1,024-second
-per-task calibration candidates the paper describes. Nothing here was measured
-against an earlier or shorter calibration set.
+per-task calibration candidates the paper describes. We checked every file for this;
+nothing here was measured against an earlier or shorter calibration set.
 
 | Path | What it is |
 |---|---|
@@ -39,13 +39,13 @@ distributed.
 
 ## Auditing the baseline
 
-The paper claims TALQ beats TAQ-KL, so the baseline's own allocation has to be
-checkable rather than taken on trust. Each `taq3600_b34*/scores.csv` holds the
-gradient-derived per-layer importance for that evaluation group — one row per
-(backbone, task, method), with the score vector, the `topk` fraction, and the
+The paper claims TALQ beats TAQ-KL, so the baseline's own allocation is worth
+being able to inspect rather than taking on trust. Each `taq3600_b34*/scores.csv`
+holds the gradient-derived per-layer importance for that evaluation group — one row
+per (backbone, task, method), with the score vector, the `topk` fraction, and the
 `hi_layers` it selects.
 
-Two things re-derive from those numbers alone:
+Two things re-derived from those numbers alone when we checked:
 
 - `hi_layers` is the top `round(n_layers * topk)` layers by score, ties going to the
   lower index (`talq.baselines.taq.allocate_topk`). Checked for all 102 rows.
@@ -54,8 +54,10 @@ Two things re-derive from those numbers alone:
   with 12 layers that is 4 layers at 4 bits, and at 3.6667 it is 8. Checked for all
   194 (row, budget) pairs.
 
-So a reader can go from the scores to the allocation to the evaluated number
-without re-running anything on a GPU.
+That covers the path from the scores to the allocation to the evaluated number,
+which is the part that can be checked without a GPU. It says nothing about whether
+the scores themselves would come out the same on a re-run — that needs the audio
+pool, where the crop is drawn at run time.
 
 `method` is `taq-is` (input-statistics importance, independent of the task head),
 `taq-kl` (KL through the head — the baseline the paper reports), or `taq-kl-cos`, an

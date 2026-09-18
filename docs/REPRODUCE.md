@@ -3,6 +3,13 @@
 Three tiers, cheapest first. Tier 1 is what most readers want and needs nothing
 but this repository.
 
+Tier 1 replays measurements we already made, so it lands where the paper does.
+Tiers 2 and 3 re-measure, and should be read as landing near the published values
+rather than on them: allocation is a stochastic search over a discrete space
+(`results/seed_stability.csv` is the spread), the audio pool crops at a random
+position each run, and a head you train yourself moves the numbers by more than
+the quantization deltas being measured (`docs/CHECKPOINTS.md`).
+
 ## Tier 1 — the paper's figures and tables, CPU only, minutes
 
 Everything required ships in `results/` (9.5 MB).
