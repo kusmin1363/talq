@@ -29,39 +29,17 @@ comparisons, with the larger margins at the tighter cap. Within 5% relative erro
 of uniform 4-bit it needs only 3.21 and 3.38 bits on average — 1.25× and 1.18×
 additional linear-weight compression.
 
-## Checking the paper's numbers
+## Figures and tables
 
-This repository is a reproduction aid, not a guarantee of exact reproduction. It
-is here so the paper's numbers can be traced back to the code and measurements
-that produced them, and so the parts that are checkable can be checked cheaply.
-Where a result depends on a stochastic search, a random crop or a separately
-trained head, re-running it will land near the published value rather than on it;
-those places are named as they come up.
-
-The figures and tables are the cheap end: the measurements they read are in
-`results/` (9.5 MB), so they need no GPU, no datasets and no checkpoints.
+The measurements they read are in `results/` (9.5 MB) — no GPU, datasets or
+checkpoints needed.
 
 ```bash
 pip install -e .
 ./scripts/make_figures.sh
 ```
 
-On our machine both figures came out identical to the published versions in
-`assets/` apart from the creation timestamp PDF embeds — so `md5sum` differs while
-the drawing does not. To check that on yours:
-
-```bash
-python - <<'EOF'
-import re
-pat = re.compile(rb"/CreationDate \(D:\d{14}Z\)")
-for a, b in [("figs/fig_sens_multi_2bit.pdf", "assets/fig1_sensitivity.pdf"),
-             ("figs/fig_alloc_multi_gptq_b3.33.pdf", "assets/fig2_allocation.pdf")]:
-    x, y = (pat.sub(b"", open(f, "rb").read()) for f in (a, b))
-    print(f"{b}: {'identical' if x == y else 'DIFFERS'}")
-EOF
-```
-
-Full procedure, including re-running the sweep from scratch: [`docs/REPRODUCE.md`](docs/REPRODUCE.md).
+Re-running the sweep itself: [`docs/REPRODUCE.md`](docs/REPRODUCE.md).
 
 ## Layout
 

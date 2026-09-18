@@ -3,12 +3,8 @@
 Three tiers, cheapest first. Tier 1 is what most readers want and needs nothing
 but this repository.
 
-Tier 1 replays measurements we already made, so it lands where the paper does.
-Tiers 2 and 3 re-measure, and should be read as landing near the published values
-rather than on them: allocation is a stochastic search over a discrete space
-(`results/seed_stability.csv` is the spread), the audio pool crops at a random
-position each run, and a head you train yourself moves the numbers by more than
-the quantization deltas being measured (`docs/CHECKPOINTS.md`).
+Tier 1 replays stored measurements. Tiers 2 and 3 re-measure; allocation is a
+stochastic search, so see `results/seed_stability.csv` for the spread.
 
 ## Tier 1 — the paper's figures and tables, CPU only, minutes
 
@@ -30,8 +26,7 @@ python figures/fig2_allocation.py --out-dir sw_gptq --quantizer GPTQ \
 ```
 
 Expected Rel. GMean in Table 1: GPTQ 1.049 (≤3.67) and 1.077 (≤3.33); AWQ 1.141
-and 1.252. Both figures come out identical to `assets/` apart from the creation timestamp
-PDF embeds; the README shows how to check that.
+and 1.252. The figures match `assets/` except for the timestamp PDF embeds.
 
 Note `figures/fig2_allocation.py` defaults to a different sweep directory; pass
 `--out-dir sw_gptq` to get the panel that is in the paper.

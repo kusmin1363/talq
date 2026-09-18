@@ -1,7 +1,7 @@
 # Shipped results
 
-Raw measurements, small enough to version (9.5 MB). The figures and tables in the
-paper are rebuilt from these, with no GPU, dataset or checkpoint needed:
+Raw measurements, small enough to version (9.5 MB). The figures and tables are
+rebuilt from these:
 
 ```bash
 python figures/table1.py          # Table 1 and Table 2
@@ -12,9 +12,8 @@ python figures/fig2_allocation.py
 ## Provenance
 
 Every allocation cell records the candidate directory it was measured against in
-its own `quant_dir` field. All of them read `quants_tc1024_{task}` — the 1,024-second
-per-task calibration candidates the paper describes. We checked every file for this;
-nothing here was measured against an earlier or shorter calibration set.
+its own `quant_dir` field. All of them read `quants_tc1024_{task}`, the 1,024-second
+per-task calibration candidates the paper describes.
 
 | Path | What it is |
 |---|---|
@@ -37,36 +36,7 @@ See `docs/REPRODUCE.md`. Rebuilding the sweep needs the task heads and the
 precomputed candidates; the candidates alone are roughly 790 GB and are not
 distributed.
 
-## Auditing the baseline
-
-The paper claims TALQ beats TAQ-KL, so the baseline's own allocation is worth
-being able to inspect rather than taking on trust. Each `taq3600_b34*/scores.csv`
-holds the gradient-derived per-layer importance for that evaluation group — one row
-per (backbone, task, method), with the score vector, the `topk` fraction, and the
-`hi_layers` it selects.
-
-Two things re-derived from those numbers alone when we checked:
-
-- `hi_layers` is the top `round(n_layers * topk)` layers by score, ties going to the
-  lower index (`talq.baselines.taq.allocate_topk`). Checked for all 102 rows.
-- each `taq_spec_{backbone}.csv` bit sequence is the top *n* by the same ordering,
-  where *n* is fixed by the budget rather than by `topk` — at 3.3333 over `{3,4}`
-  with 12 layers that is 4 layers at 4 bits, and at 3.6667 it is 8. Checked for all
-  194 (row, budget) pairs.
-
-That covers the path from the scores to the allocation to the evaluated number,
-which is the part that can be checked without a GPU. It says nothing about whether
-the scores themselves would come out the same on a re-run — that needs the audio
-pool, where the crop is drawn at run time.
-
-`method` is `taq-is` (input-statistics importance, independent of the task head),
-`taq-kl` (KL through the head — the baseline the paper reports), or `taq-kl-cos`, an
-exploratory cosine variant. The five `taq-kl-cos` rows have no `taq_spec` rows: no
-budget spec was ever built for them, so they were never evaluated.
-
-One field needed repair. `taq_grid` wrote its `calib` provenance through
-`os.path.basename`, which is right when the value is a path but truncates the
-descriptive tag that `--calib-pool` produces: `train_pool(er/fold1, 3600s, n=600)`
-was stored as `fold1, 3600s, n=600)`. The ER rows here carry the full string
-restored from the fold number and count they still held; the code no longer
-truncates it.
+`taq3600_b34*/scores.csv` carries the per-layer importance each baseline allocation
+was derived from: one row per (backbone, task, method) with the score vector, the
+`topk` fraction and the `hi_layers` it selects. `method` is `taq-is`, `taq-kl` (the
+baseline the paper reports) or `taq-kl-cos`.

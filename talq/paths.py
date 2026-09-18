@@ -77,10 +77,11 @@ VOXCELEB1 = DATA_ROOT / "voxceleb1"
 IEMOCAP_MANIFEST = DATA_ROOT / "iemocap.jsonl"
 EMILIA_EN = DATA_ROOT / "emilia" / "Emilia" / "EN"
 
-# The task heads were trained against this lexicon, which is NOT the official
-# s3prl one in LEXICONS: it strips stress, giving 39 phones instead of 71, and
-# drops the utterances it cannot cover. Keep the two apart -- pointing the heads
-# at the official lexicon changes the symbol inventory and every PR number.
+# Only talq.eval.probe_train's default reads this one; it strips stress, giving 39
+# phones instead of 71, and drops the utterances it cannot cover. The published PR
+# and ASR heads were trained on the official s3prl lexicon in LEXICONS (their itos
+# is the 71-symbol vocab), and every evaluation path calls load_lexicon_official.
+# Keep the two apart -- the symbol inventory sets every PR number.
 LIBRISPEECH_LEXICON = DATA_ROOT / "librispeech-lexicon.txt"
 
 # ---- quantized candidates --------------------------------------------------
