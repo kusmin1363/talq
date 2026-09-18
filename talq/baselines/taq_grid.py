@@ -183,7 +183,11 @@ def main():
                         "hi_layers": " ".join(str(k) for k in sorted(bm) if bm[k] == hi),
                         "avg_bits_linear": round(f["avg_bits_linear"], 4),
                         "W_GB": round(f["W_GB"], 5),
-                        "calib": os.path.basename(cpath),
+                        # basename only when cpath is a real path. With --calib-pool
+                        # it is a descriptive tag containing "er/fold{n}", and
+                        # basename would cut everything before the slash.
+                        "calib": (cpath if a.calib_pool > 0
+                                  else os.path.basename(cpath)),
                         "scores": json.dumps([round(x, 6) for x in sc]),
                     })
             print(f"  {bk}/{task}: " + "  ".join(
